@@ -1,9 +1,7 @@
-// 예시
+// check input
+// validate input by adding rules
 
-import { useState } from "react";
-import "./styles.css";
-
-const useInput = (initialValue, validator) => {
+export const useInput = (initialValue, validator) => {
     const [value, setValue] = useState(initialValue);
     const onChange = (e) => {
         const {
@@ -19,18 +17,3 @@ const useInput = (initialValue, validator) => {
     };
     return { value, onChange };
 };
-
-const App = () => {
-    const maxLen = (value) => value.length <= 10;
-    const name = useInput("Mr.", maxLen);
-    const email = useInput("@");
-    return (
-        <div>
-            <div>hello world</div>
-            <input placeholder="what's your name?" {...name} />
-            <input placeholder="email" {...email} />
-        </div>
-    );
-};
-
-export default App;
