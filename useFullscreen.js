@@ -1,23 +1,35 @@
 const useFullScreen = (callback) => {
     const element = useRef();
+    const runCallback = (isFull) => {
+        if (callback && typeof callback === "function") {
+            callback(isFull);
+        }
+    };
     const triggerFullscreen = () => {
         if (element.current) {
-            element.current.requestFullscreen();
-            if (callback && typeof callback === "function") {
-                callback(true);
+            if (element.current.requestFullscreen) {
+                element.current.requestFullscreen();
+            } else if (element.current.webkitRequestFullscreen) {
+                element.current.webkitRequestFullscreen();
+            } else if (element.current.mozRequestFullscreen) {
+                element.current.mozRequestFullscreen();
+            } else if (element.current.msRequestFullscreen) {
+                element.current.msRequestFullscreen();
             }
+            runCallback(true);
         }
     };
     const exitFullscreen = () => {
-        document.exitFullscreen();
-        if (callback && typeof callback === "function") {
-            callback(false);
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.mozCanelFullScreen) {
+            document.mozCanelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
         }
+        runCallback(false);
     };
     return { element, triggerFullscreen, exitFullscreen };
 };
-
-// not done yet.
-// todo: 크롬 외의 브라우져에서도 지원하게 할 것
-//       state 추가하여 풀스크린 여부 검사
-//       callback 검사 중복 금지.
