@@ -1,4 +1,4 @@
-const useFadeIn = (duration = 1, delay = 0) => {
+export const useFadeIn = (duration = 1, delay = 0) => {
     if (typeof duration !== "number" || typeof delay !== "number") {
         return;
     }

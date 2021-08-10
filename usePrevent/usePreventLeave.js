@@ -1,4 +1,4 @@
-const usePreventLeave = () => {
+export const usePreventLeave = () => {
     const listener = (e) => {
         e.preventDefault();
         // only chrome?

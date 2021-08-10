@@ -1,7 +1,7 @@
 // using Notification api
 // MDN 찾아보기
 
-const useNotification = (title, options) => {
+export const useNotification = (title, options) => {
     if (!("Notification" in window)) {
         return;
     }
